@@ -1,0 +1,10 @@
+# Developing Prefixes
+_*
+
+# build directory
+build/
+
+# VSCODE preference
+*.code-workspace
+*.vscode
+
