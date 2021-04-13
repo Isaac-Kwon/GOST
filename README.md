@@ -2,12 +2,11 @@
 
 > **G**eneral **O**ptice **S**imula**t**ion
 
-## Can simulate (Now developed)
-
-* Geometrical Optics
+UNDER DEVELOPMENT
 
 ## To do list
 
+* Geometrical Optics
 * Wave Optics
 * Polarization
 * Laser Optics
