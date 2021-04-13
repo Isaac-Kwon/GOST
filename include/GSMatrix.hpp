@@ -17,8 +17,12 @@ class GSMatrix{
     GSMatrix& operator=(const GSMatrix&);
 
     ~GSMatrix();
-    void     Freeing();
     GSMatrix Transpose();
+    double   Det();
+    double   Trace();
+    GSMatrix SubMatrix(const int i, const int j);
+    double   Cofactor(const int i, const int j);
+    GSMatrix Inverse();
     double   At(int i);
     double   At(int i, int j);
     double&  operator[](int i);

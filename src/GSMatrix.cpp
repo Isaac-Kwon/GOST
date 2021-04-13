@@ -139,7 +139,83 @@ double&  GSMatrix::operator()(int i, int j){
     return fElement[i*fM+j];
 }
 
+double GSMatrix::Det(){
+    if(fM != fN){
+        std::cout<<"GSMatrix::Det() - Determinant can be defined only for square matrix "<<"["<<fM<<","<<fN<<"]"<<std::endl;
+        return 0.;
+    }
+    if(fM==0) return 0.;
+
+    if(fM==2){
+        return At(0,0)*At(1,1) - At(0,1)*At(1,0);
+    }
+
+    double ans = 0;
+    for(int i=0; i<fN; i++){
+        ans += pow(-1, i)*At(0,i)*SubMatrix(0, i).Det();
+    }
+
+    return ans;
+}
+
+double GSMatrix::Trace(){
+    double ans = 0;
+    int ii = fN>fM ? fM : fN;
+
+    for(int i=0; i<ii; i++){
+        ans += operator()(i,i);
+    }
+    return ans;    
+}
+
+GSMatrix GSMatrix::SubMatrix(const int i_, const int j_){
+    
+    GSMatrix ans = GSMatrix(fM-1, fN-1);
+
+    for(int i=0; i<fM-1; i++){
+        for(int j=0; j<fN-1; j++){
+            ans(i,j) = At(
+                i < i_ ? i : i+1,
+                j < j_ ? j : j+1
+            );
+        }
+    }
+    return ans;
+}
+
+double GSMatrix::Cofactor(const int i, const int j){
+    return pow(-1, i+j) * SubMatrix(j,i).Det();
+}
+
 GSMatrix GSMatrix::Inverse(){
+    if(fM != fN){
+        std::cout<<"GSMatrix::Inverse() - Inverse can be defined only for square matrix "<<"["<<fM<<","<<fN<<"]"<<std::endl;
+        return GSMatrix();
+    }
+
+    double det = Det();
+
+    if(det<0.0000000001 && det>-0.0000000001 ){
+        std::cout<<"GSMatrix::Inverse() - Determinant is near zero. No inverse matrix "<<"["<<det<<"]"<<std::endl;
+        return GSMatrix();
+    }
+
+    GSMatrix ans = GSMatrix(fM, fN);
+    for(int i=0; i<fM; i++){
+        for(int j=0; j<fN; j++){
+            ans(i,j) = Cofactor(i,j);
+        }
+    }
+
+    ans*=(1/Det());
+
+    return ans;
+
+}
+
+
+
+GSMatrix GSMatrix::Transpose(){
     GSMatrix ans(fN, fM);
 
     for(int i=0; i<fM; i++){
@@ -166,7 +242,7 @@ GSMatrix operator*(double other, GSMatrix self){
     return ans;
 }
 
-GSMatrix operator*(GSMatrix & self, GSMatrix & other){
+GSMatrix operator*(GSMatrix self, GSMatrix  other){
     if(self.fN != other.fM){
         std::cout<<"GSMatrix::operator*()(3) - inner part of 2 matrices are not same : "<<self.fN<<", "<<other.fM<<std::endl;
         return GSMatrix();
