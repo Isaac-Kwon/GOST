@@ -36,6 +36,9 @@ class GSMatrix{
     friend GSMatrix operator+(GSMatrix &  , GSMatrix  & );
     friend GSMatrix operator-(GSMatrix &  , GSMatrix  & );
 
+    inline GSMatrix& operator*=(const double& other); //Scaling
+
+
     protected:
     void     Freeing();
 
@@ -53,5 +56,12 @@ GSMatrix operator*(double   , GSMatrix );
 GSMatrix operator*(GSMatrix & , GSMatrix & );
 GSMatrix operator+(GSMatrix & , GSMatrix & );
 GSMatrix operator-(GSMatrix & , GSMatrix & );
+
+inline GSMatrix& GSMatrix::operator*=(const double&   other){
+    for(int i=0; i<fM*fN; i++){
+        fElement[i] *= other;
+    }
+    return (*this);
+}
 
 #endif
