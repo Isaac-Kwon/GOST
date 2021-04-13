@@ -37,6 +37,7 @@ class GSMatrix{
     friend GSMatrix operator-(GSMatrix &  , GSMatrix  & );
 
     protected:
+    void     Freeing();
 
     private:
     void Init();
