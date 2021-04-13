@@ -63,7 +63,7 @@ class GSVector{
     std::string Print(bool quite=false);
 
     protected:
-    public:
+    private:
     double fX=0., fY=0., fZ=0;
 
 };
