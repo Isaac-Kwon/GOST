@@ -32,7 +32,7 @@ class GSMatrix{
 
     friend GSMatrix operator*(GSMatrix , double  );
     friend GSMatrix operator*(double  , GSMatrix );
-    friend GSMatrix operator*(GSMatrix &  , GSMatrix  & );
+    friend GSMatrix operator*(GSMatrix   , GSMatrix   );
     friend GSMatrix operator+(GSMatrix &  , GSMatrix  & );
     friend GSMatrix operator-(GSMatrix &  , GSMatrix  & );
 
@@ -53,7 +53,7 @@ class GSMatrix{
 
 GSMatrix operator*(GSMatrix , double   );
 GSMatrix operator*(double   , GSMatrix );
-GSMatrix operator*(GSMatrix & , GSMatrix & );
+GSMatrix operator*(GSMatrix , GSMatrix );
 GSMatrix operator+(GSMatrix & , GSMatrix & );
 GSMatrix operator-(GSMatrix & , GSMatrix & );
 
